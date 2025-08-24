@@ -2,6 +2,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const chatContainer = document.getElementById('chatContainer');
     const userInput = document.getElementById('userInput');
     const sendButton = document.getElementById('sendButton');
+    const themeToggle = document.getElementById('themeToggle');
     
     // Focus input on load
     userInput.focus();
@@ -13,6 +14,29 @@ document.addEventListener('DOMContentLoaded', function() {
     userInput.addEventListener('keypress', function(e) {
         if (e.key === 'Enter') {
             sendMessage();
+        }
+    });
+    
+    // Theme toggle functionality
+    themeToggle.addEventListener('click', function() {
+        document.body.classList.toggle('light-mode');
+        
+        if (document.body.classList.contains('light-mode')) {
+            // Switch to light mode
+            document.documentElement.style.setProperty('--bg-primary', '#f7f7f8');
+            document.documentElement.style.setProperty('--bg-secondary', '#ffffff');
+            document.documentElement.style.setProperty('--bg-tertiary', '#e5e5e6');
+            document.documentElement.style.setProperty('--text-primary', '#202123');
+            document.documentElement.style.setProperty('--text-secondary', '#8e8ea0');
+            document.documentElement.style.setProperty('--border-color', '#e5e5e6');
+        } else {
+            // Switch to dark mode
+            document.documentElement.style.setProperty('--bg-primary', '#0f0f0f');
+            document.documentElement.style.setProperty('--bg-secondary', '#1a1a1a');
+            document.documentElement.style.setProperty('--bg-tertiary', '#2d2d2d');
+            document.documentElement.style.setProperty('--text-primary', '#f0f0f0');
+            document.documentElement.style.setProperty('--text-secondary', '#a0a0a0');
+            document.documentElement.style.setProperty('--border-color', '#3d3d3d');
         }
     });
     
@@ -82,6 +106,8 @@ document.addEventListener('DOMContentLoaded', function() {
                 "How does a penguin build its house? Igloos it together!"
             ];
             response = jokes[Math.floor(Math.random() * jokes.length)];
+        } else if (userMessage.includes('dark mode') || userMessage.includes('dark theme')) {
+            response = "I see you're enjoying the dark theme! It's easier on the eyes, especially at night.";
         } else {
             response = "That's an interesting question. I'm still learning, but I'll do my best to help you with that.";
         }
