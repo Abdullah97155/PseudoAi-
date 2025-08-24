@@ -21,22 +21,29 @@ document.addEventListener('DOMContentLoaded', function() {
     themeToggle.addEventListener('click', function() {
         document.body.classList.toggle('light-mode');
         
+        // Update button icon based on current mode
         if (document.body.classList.contains('light-mode')) {
-            // Switch to light mode
-            document.documentElement.style.setProperty('--bg-primary', '#f7f7f8');
-            document.documentElement.style.setProperty('--bg-secondary', '#ffffff');
-            document.documentElement.style.setProperty('--bg-tertiary', '#e5e5e6');
-            document.documentElement.style.setProperty('--text-primary', '#202123');
-            document.documentElement.style.setProperty('--text-secondary', '#8e8ea0');
-            document.documentElement.style.setProperty('--border-color', '#e5e5e6');
+            // Switch to moon icon (dark mode icon)
+            themeToggle.innerHTML = `
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+            `;
         } else {
-            // Switch to dark mode
-            document.documentElement.style.setProperty('--bg-primary', '#0f0f0f');
-            document.documentElement.style.setProperty('--bg-secondary', '#1a1a1a');
-            document.documentElement.style.setProperty('--bg-tertiary', '#2d2d2d');
-            document.documentElement.style.setProperty('--text-primary', '#f0f0f0');
-            document.documentElement.style.setProperty('--text-secondary', '#a0a0a0');
-            document.documentElement.style.setProperty('--border-color', '#3d3d3d');
+            // Switch to sun icon (light mode icon)
+            themeToggle.innerHTML = `
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M12 16C14.2091 16 16 14.2091 16 12C16 9.79086 14.2091 8 12 8C9.79086 8 8 9.79086 8 12C8 14.2091 9.79086 16 12 16Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M12 2V4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M12 20V22" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M4.93 4.93L6.34 6.34" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M17.66 17.66L19.07 19.07" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M2 12H4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M20 12H22" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M6.34 17.66L4.93 19.07" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M19.07 4.93L17.66 6.34" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+            `;
         }
     });
     
@@ -105,9 +112,11 @@ document.addEventListener('DOMContentLoaded', function() {
                 "What do you call a fake noodle? An impasta!",
                 "How does a penguin build its house? Igloos it together!"
             ];
-            response = jokes[Math.floor(Math.random() * jokes.length)];
+            response = jokes[Math.floor(MathRandom() * jokes.length)];
         } else if (userMessage.includes('dark mode') || userMessage.includes('dark theme')) {
             response = "I see you're enjoying the dark theme! It's easier on the eyes, especially at night.";
+        } else if (userMessage.includes('light mode') || userMessage.includes('light theme')) {
+            response = "Light mode is great for daytime use! You can switch between themes using the button in the header.";
         } else {
             response = "That's an interesting question. I'm still learning, but I'll do my best to help you with that.";
         }
@@ -117,6 +126,6 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Add initial messages to demonstrate the chat
     setTimeout(() => {
-        addMessage("Try asking me about the weather, time, or even tell me a joke!", 'ai');
+        addMessage("Try asking me about the weather, time, or even tell me a joke! You can also toggle between light and dark mode using the button in the top right.", 'ai');
     }, 1500);
 });
